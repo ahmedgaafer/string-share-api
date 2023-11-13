@@ -1,16 +1,20 @@
 const express = require("express");
 const app = express();
-const url = require("url");
 const port = 10000;
-
 const hash = {};
+
+const PASS = process.env.HASH_KEY;
 
 app.get("/", (req, res) => {
 	res.send("Hello World!");
 });
 
 app.get("/v1/hash", (req, res) => {
-	const { key, value } = req.query;
+	const { key, value, pass } = req.query;
+
+	if (pass !== PASS) {
+		return res.status(401).send("Unauthorized");
+	}
 
 	hash[key] = value;
 	res.status(201).send(
