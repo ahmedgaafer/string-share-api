@@ -45,6 +45,11 @@ app.get('/v1/hash/:key', (req, res) => {
 
 	res.status(200).send(value);
 });
+
+app.get('/healthz', (req, res) => {
+	res.status(200).send('Ok');
+});
+
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`);
 });
